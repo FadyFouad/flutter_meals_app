@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttermealsapp/dummy_data.dart';
+import 'package:fluttermealsapp/widgets/meal_widget.dart';
 
 ///****************************************************
 ///*** Created by Fady Fouad on 22-Mar-20 at 18:53.***
@@ -18,7 +19,7 @@ class CategoryMealsScreen extends StatelessWidget {
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final catId = routeArgs['id'];
     final catTitle = routeArgs['title'];
-    final catsMeals = DUMMY_MEALS.where((meal){
+    final catsMeals = DUMMY_MEALS.where((meal) {
       return meal.categories.contains(catId);
     }).toList();
     return Scaffold(
@@ -30,9 +31,16 @@ class CategoryMealsScreen extends StatelessWidget {
         margin: EdgeInsets.all(8),
         child: ListView.builder(
           itemBuilder: (context, index) {
-            return Text(catsMeals[index].title);
+            return MealItem(
+              id: catsMeals[index].id,
+              title: catsMeals[index].title,
+              imageUrl: catsMeals[index].imageUrl,
+              duration: catsMeals[index].duration,
+              complexity: catsMeals[index].complexity,
+              affordability: catsMeals[index].affordability,
+            );
           },
-          itemCount:catsMeals.length ,
+          itemCount: catsMeals.length,
         ),
       ),
     );

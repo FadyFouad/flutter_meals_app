@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttermealsapp/models/meal.dart';
 
 ///****************************************************
 ///*** Created by Fady Fouad on 22-Mar-20 at 19:10.***
@@ -8,9 +9,20 @@ import 'package:flutter/material.dart';
 class MealItem extends StatelessWidget {
   final String id;
   final String title;
-  final Color color;
+  final String imageUrl;
+  final int duration;
+  final Complexity complexity;
+  final Affordability affordability;
 
-  const MealItem({Key key, this.title, this.color, this.id}) : super(key: key);
+  MealItem(
+      {Key key,
+      @required this.title,
+      @required this.id,
+      @required this.imageUrl,
+      @required this.duration,
+      @required this.complexity,
+      @required this.affordability})
+      : super(key: key);
 
   void onItemTapped(BuildContext context) {
     Navigator.of(context).pushNamed('CategoryMeals', arguments: {
@@ -24,25 +36,33 @@ class MealItem extends StatelessWidget {
     return InkWell(
       child: Container(
         padding: const EdgeInsets.all(8),
-        margin: EdgeInsets.all(1),
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(
-//              background: Paint()..color = Color.fromRGBO(255, 255, 0, 0.25),
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                shadows: [Shadow(color: Colors.amber, blurRadius: 10)]),
+        margin: EdgeInsets.all(8),
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          elevation: 4,
+          child: Column(
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16)),
+                    child: Image.network(
+                      imageUrl,
+                      width: double.infinity,
+                      height: 250,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              color.withOpacity(.1),
-              color,
-            ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-            borderRadius: BorderRadius.circular(16)),
       ),
-      onTap: ()=> onItemTapped(context),
+      onTap: () => onItemTapped(context),
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(16),
     );
