@@ -5,13 +5,19 @@ import 'package:flutter/material.dart';
 ///*** Created by Fady Fouad on 22-Mar-20 at 19:10.***
 ///****************************************************
 
-class CategoryItem extends StatelessWidget {
+class MealItem extends StatelessWidget {
   final String id;
   final String title;
   final Color color;
 
-  const CategoryItem({Key key, this.title, this.color, this.id})
-      : super(key: key);
+  const MealItem({Key key, this.title, this.color, this.id}) : super(key: key);
+
+  void onItemTapped(BuildContext context) {
+    Navigator.of(context).pushNamed('CategoryMeals', arguments: {
+      "id": id,
+      "title": title,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +42,9 @@ class CategoryItem extends StatelessWidget {
             ], begin: Alignment.topLeft, end: Alignment.bottomRight),
             borderRadius: BorderRadius.circular(16)),
       ),
-      onTap:() => onItemTapped(context),
+      onTap: ()=> onItemTapped(context),
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(16),
     );
-  }
-  void onItemTapped(BuildContext context){
-    Navigator.of(context).pushNamed('CategoryMeals', arguments: {
-      "id": id,
-      "title": title,
-    });
   }
 }
