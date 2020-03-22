@@ -7,10 +7,12 @@ import 'package:fluttermealsapp/screens/category_meal_screen.dart';
 ///****************************************************
 
 class CategoryItem extends StatelessWidget {
+  final String id;
   final String title;
   final Color color;
 
-  const CategoryItem({Key key, this.title, this.color}) : super(key: key);
+  const CategoryItem({Key key, this.title, this.color, this.id})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +37,27 @@ class CategoryItem extends StatelessWidget {
             ], begin: Alignment.topLeft, end: Alignment.bottomRight),
             borderRadius: BorderRadius.circular(16)),
       ),
-      onTap: () => {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) {
-              return CategoryMealsScreen(title: title,);
-            },
-          ),
+      onTap: () =>
+      {
+        Navigator.of(context).pushNamed(
+            'CategoryMeals',
+            arguments:{
+              "id":id,
+              "title":title,
+            }
+//          MaterialPageRoute(
+//            builder: (_) {
+//              return CategoryMealsScreen(
+//                title: title,
+//                id: id,
+//              );
+//            },
+//          ),
         ),
       },
-      splashColor: Theme.of(context).primaryColor,
+      splashColor: Theme
+          .of(context)
+          .primaryColor,
       borderRadius: BorderRadius.circular(16),
     );
   }
