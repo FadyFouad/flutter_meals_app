@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttermealsapp/screens/category_screen.dart';
+import 'package:fluttermealsapp/screens/favorites_screen.dart';
 
 ///****************************************************
 ///*** Created by Fady Fouad on 23-Mar-20 at 15:07.***
@@ -15,9 +16,7 @@ class _TabsScreenState extends State<TabsScreen> {
     CategoryScreen(
       title: "Meals",
     ),
-    CategoryScreen(
-      title: "fav",
-    ),
+    FavoritesScreen(),
   ];
   int _selectedScreenIndex = 0;
 
