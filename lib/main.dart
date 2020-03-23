@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttermealsapp/screens/category_meal_screen.dart';
 import 'package:fluttermealsapp/screens/category_screen.dart';
+import 'package:fluttermealsapp/screens/meal_detail_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,14 +22,13 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.indigo,
-        canvasColor: Color.fromRGBO(255, 254, 229, 1),
-
-
+        primarySwatch: Colors.orange,
+        canvasColor: Color.fromRGBO(255, 204, 200, 1),
       ),
       home: CategoryScreen(title: 'Meal App'),
       routes: {
-        "CategoryMeals":(_)=>CategoryMealsScreen(),
+        "CategoryMeals": (_) => CategoryMealsScreen(),
+        "MealDetails": (_) => MealDetailsScreen(),
       },
     );
   }

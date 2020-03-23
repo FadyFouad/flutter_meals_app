@@ -25,10 +25,42 @@ class MealItem extends StatelessWidget {
       : super(key: key);
 
   void onItemTapped(BuildContext context) {
-    Navigator.of(context).pushNamed('CategoryMeals', arguments: {
-      "id": id,
-      "title": title,
-    });
+    Navigator.of(context).pushNamed(
+      'MealDetails',
+      arguments: id,
+    );
+  }
+
+  String get complexityString {
+    switch (complexity) {
+      case Complexity.Simple:
+        return "Simple";
+        break;
+      case Complexity.Normal:
+        return "Normal";
+        break;
+      case Complexity.Hard:
+        return "Hard";
+        break;
+      default:
+        return "UNKOWN";
+    }
+  }
+
+  String get affordabilityString {
+    switch (affordability) {
+      case Affordability.Affordable:
+        return "Affordable";
+        break;
+      case Affordability.Pricey:
+        return "Pricey";
+        break;
+      case Affordability.Luxurious:
+        return "Luxurious";
+        break;
+      default:
+        return "UNKOWN";
+    }
   }
 
   @override
@@ -36,7 +68,7 @@ class MealItem extends StatelessWidget {
     return InkWell(
       child: Container(
         padding: const EdgeInsets.all(8),
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.all(4),
         child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -56,8 +88,62 @@ class MealItem extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
+                  Positioned(
+                    bottom: 20,
+                    right: 0,
+                    child: Container(
+                      width: 320,
+                      color: Colors.black54,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                        ),
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                      ),
+                    ),
+                  )
                 ],
               ),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Icon(Icons.schedule),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text('$duration min'),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Icon(Icons.work),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text('$complexityString cc'),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Icon(Icons.monetization_on),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text('$affordabilityString'),
+                      ],
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
