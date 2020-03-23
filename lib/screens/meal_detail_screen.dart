@@ -16,8 +16,8 @@ class MealDetailsScreen extends StatelessWidget {
         title: Text(selectedMeal.title),
       ),
       body: Container(
-        padding: EdgeInsets.all(8),
-        margin: EdgeInsets.all(8),
+        padding: EdgeInsets.only(bottom: 8),
+        margin: EdgeInsets.only(bottom: 8),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -38,7 +38,7 @@ class MealDetailsScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         selectedMeal.ingredients[index],
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -53,9 +53,11 @@ class MealDetailsScreen extends StatelessWidget {
                     children: <Widget>[
                       ListTile(
                         leading: CircleAvatar(
-                          child: Text('# ${index+1}'),
+                          child: Text('# ${index + 1}'),
                         ),
-                        title: Text(selectedMeal.steps[index]),
+                        title: Text(
+                          selectedMeal.steps[index],
+                        ),
                       ),
                       Divider(),
                     ],
@@ -83,7 +85,8 @@ class MealDetailsScreen extends StatelessWidget {
   Widget listViewContainer({Widget child}) {
     return Container(
       height: 260,
-      padding: EdgeInsets.all(4),
+      padding: EdgeInsets.all(8),
+      margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.amber,
         border: Border.all(color: Colors.grey),

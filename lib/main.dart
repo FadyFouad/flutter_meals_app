@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.orange,
-        canvasColor: Color.fromRGBO(255, 204, 200, 1),
+        canvasColor: Color.fromRGBO(255, 255, 200, 1),
       ),
       home: CategoryScreen(title: 'Meal App'),
       routes: {
