@@ -11,33 +11,46 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+  final List<Widget> _screens = [
+    CategoryScreen(
+      title: "Meals",
+    ),
+    CategoryScreen(
+      title: "fav",
+    ),
+  ];
+  int _selectedScreenIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedScreenIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Meals"),
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.category),
-                text: 'Categories',
-              ),
-              Tab(
-                icon: Icon(Icons.favorite),
-                text: 'Favorites',
-              ),
-            ],
+    return Scaffold(
+      body: _screens[_selectedScreenIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _onItemTapped,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.category),
+            title: Text("Categories"),
           ),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            CategoryScreen(title: 'Meal',),
-            CategoryScreen(title: 'Meal',),
-          ],
-        ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.favorite),
+            title: Text("favorites"),
+          )
+        ],
+        backgroundColor: Theme.of(context).accentColor,
+        unselectedItemColor: Colors.white70,
+        selectedItemColor: Colors.white,
+        currentIndex: _selectedScreenIndex,
+        type: BottomNavigationBarType.shifting,
       ),
-      length: 2,
     );
   }
 }
