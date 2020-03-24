@@ -1,15 +1,52 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttermealsapp/dummy_data.dart';
 import 'package:fluttermealsapp/screens/category_meal_screen.dart';
 import 'package:fluttermealsapp/screens/category_screen.dart';
 import 'package:fluttermealsapp/screens/meal_detail_screen.dart';
 import 'package:fluttermealsapp/screens/settings_screen.dart';
 import 'package:fluttermealsapp/screens/tabs_screen.dart';
 
+import 'models/meal.dart';
+
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<Meal> _myMeals = DUMMY_MEALS;
+  Map<String, bool> _filters = {
+    'isGlutenFree': false,
+    'isLactoseFree': true,
+    'isVegetarian': false,
+    'isVegan': false,
+  };
+
+  void _setFilters(Map<String, bool> _filters) {
+    setState(() {
+      this._filters = _filters;
+      _myMeals = DUMMY_MEALS.where((meal) {
+        if (_filters['isGlutenFree'] && meal.isGlutenFree) {
+          return false;
+        }
+        if (_filters['isLactoseFree'] && meal.isLactoseFree) {
+          return false;
+        }
+        if (_filters['isVegetarian'] && meal.isVegetarian) {
+          return false;
+        }
+        if (_filters['isVegan'] && meal.isVegan) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,10 +67,10 @@ class MyApp extends StatelessWidget {
       home: CategoryScreen(title: 'Meal App'),
       initialRoute: "init",
       routes: {
-        "init":(_)=>TabsScreen(),
-        "CategoryMeals": (_) => CategoryMealsScreen(),
+        "init": (_) => TabsScreen(),
+        "CategoryMeals": (_) => CategoryMealsScreen(myMeals: _myMeals),
         "MealDetails": (_) => MealDetailsScreen(),
-        "Settings": (_) => SettingsScreen(),
+        "Settings": (_) => SettingsScreen(userFilters: _filters,filters: _setFilters),
       },
     );
   }

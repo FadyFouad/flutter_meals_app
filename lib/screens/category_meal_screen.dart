@@ -1,25 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttermealsapp/dummy_data.dart';
+import 'package:fluttermealsapp/models/meal.dart';
 import 'package:fluttermealsapp/widgets/meal_widget.dart';
 
 ///****************************************************
 ///*** Created by Fady Fouad on 22-Mar-20 at 18:53.***
 ///****************************************************
 
-class CategoryMealsScreen extends StatelessWidget {
+class CategoryMealsScreen extends StatefulWidget {
   final String title;
   final String id;
+  final List<Meal> myMeals;
 
-  const CategoryMealsScreen({Key key, this.title, this.id}) : super(key: key);
+  const CategoryMealsScreen({Key key, this.title, this.id, this.myMeals})
+      : super(key: key);
 
+  @override
+  _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
+}
+
+class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   @override
   Widget build(BuildContext context) {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final catId = routeArgs['id'];
     final catTitle = routeArgs['title'];
-    final catsMeals = DUMMY_MEALS.where((meal) {
+    final catsMeals = widget.myMeals.where((meal) {
       return meal.categories.contains(catId);
     }).toList();
     return Scaffold(

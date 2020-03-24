@@ -7,6 +7,11 @@ import 'package:fluttermealsapp/widgets/main_drawer.dart';
 ///****************************************************
 
 class SettingsScreen extends StatefulWidget {
+  final Function filters;
+  final Map<String,bool>userFilters;
+
+  const SettingsScreen({Key key, this.filters, this.userFilters}) : super(key: key);
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -17,8 +22,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   var _isVegetarian = false;
   var _isLactoseFree = false;
 
-  Widget _listSwitchTile(
-      String title, String subTitle, bool _value, Function onChanged) {
+  @override
+  initState(){
+    _isGlutenFree = widget.userFilters['isGlutenFree'];
+    _isLactoseFree = widget.userFilters['isLactoseFree'];
+    _isVegetarian = widget.userFilters['isVegetarian'];
+    _isVegan = widget.userFilters['isVegan'];
+    super.initState();
+  }
+  Widget _listSwitchTile(String title, String subTitle, bool _value,
+      Function onChanged) {
     return SwitchListTile(
       value: _value,
       title: Text(title),
@@ -32,6 +45,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Settings"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: () {
+              final _filters = {
+                'isGlutenFree': _isGlutenFree,
+                'isLactoseFree': _isLactoseFree,
+                'isVegetarian': _isVegetarian,
+                'isVegan': _isVegan,
+              };
+              widget.filters(_filters);
+            },
+          )
+        ],
       ),
       drawer: Drawer(
         child: MainDrawer(),
@@ -52,7 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   "Gluten Free",
                   "show / hide Gluten meals",
                   _isGlutenFree,
-                  (bool value) {
+                      (bool value) {
                     setState(() {
                       _isGlutenFree = value;
                     });
@@ -62,7 +89,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   "is Vegan",
                   "show / hide Vegan meals",
                   _isVegan,
-                  (bool value) {
+                      (bool value) {
                     setState(() {
                       _isVegan = value;
                     });
@@ -72,7 +99,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   "is Vegetarian",
                   "show / hide Vegetarian meals",
                   _isVegetarian,
-                  (bool value) {
+                      (bool value) {
                     setState(() {
                       _isVegetarian = value;
                     });
@@ -82,7 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   "Lactose Free",
                   "show / hide Lactose Free meals",
                   _isLactoseFree,
-                  (bool value) {
+                      (bool value) {
                     setState(() {
                       _isLactoseFree = value;
                     });
