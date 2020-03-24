@@ -129,7 +129,7 @@ class MealItem extends StatelessWidget {
                         SizedBox(
                           width: 8,
                         ),
-                        Text('$complexityString cc'),
+                        Text('$complexityString'),
                       ],
                     ),
                     Row(
