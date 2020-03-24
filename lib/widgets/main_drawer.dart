@@ -31,7 +31,9 @@ class MainDrawer extends StatelessWidget {
               'Meals',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            onTap: () => {},
+            onTap: () => {
+              Navigator.of(context).pushReplacementNamed("init")
+            },
           ),
           ListTile(
             leading: Icon(Icons.settings),
@@ -39,7 +41,9 @@ class MainDrawer extends StatelessWidget {
               'Settings',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            onTap: () => {},
+            onTap: () => {
+              Navigator.of(context).pushReplacementNamed("Settings")
+            },
           ),
         ],
       ),

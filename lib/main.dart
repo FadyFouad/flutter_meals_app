@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttermealsapp/screens/category_meal_screen.dart';
 import 'package:fluttermealsapp/screens/category_screen.dart';
 import 'package:fluttermealsapp/screens/meal_detail_screen.dart';
+import 'package:fluttermealsapp/screens/settings_screen.dart';
 import 'package:fluttermealsapp/screens/tabs_screen.dart';
 
 void main() => runApp(MyApp());
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         "init":(_)=>TabsScreen(),
         "CategoryMeals": (_) => CategoryMealsScreen(),
         "MealDetails": (_) => MealDetailsScreen(),
+        "Settings": (_) => SettingsScreen(),
       },
     );
   }
