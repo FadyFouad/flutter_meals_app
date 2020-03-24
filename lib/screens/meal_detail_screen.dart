@@ -38,7 +38,8 @@ class MealDetailsScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         selectedMeal.ingredients[index],
-                        style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -68,6 +69,12 @@ class MealDetailsScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.favorite_border),
+        onPressed: () {
+
+        },
       ),
     );
   }
