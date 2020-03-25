@@ -8,7 +8,8 @@ import 'package:fluttermealsapp/dummy_data.dart';
 
 class MealDetailsScreen extends StatelessWidget {
   final Function addRemoveFav;
-  const MealDetailsScreen({Key key, this.addRemoveFav}) : super(key: key);
+  final Function isMealFav;
+  const MealDetailsScreen({Key key, this.addRemoveFav, this.isMealFav}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +75,8 @@ class MealDetailsScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.favorite_border),
-        onPressed: addRemoveFav,
+        child:Icon( isMealFav(mealId) ? Icons.favorite:Icons.favorite_border),
+        onPressed:() => addRemoveFav(mealId),
       ),
     );
   }

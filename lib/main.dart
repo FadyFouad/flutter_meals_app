@@ -47,7 +47,6 @@ class _MyAppState extends State<MyApp> {
       }).toList();
     });
   }
-
   void _addRemoveFav(String mealID) {
     final index = _favMeals.indexWhere((meal) => mealID == meal.id);
     if (index >= 0) {
@@ -59,6 +58,10 @@ class _MyAppState extends State<MyApp> {
         _favMeals.add(DUMMY_MEALS.firstWhere((meal) => mealID == meal.id));
       });
     }
+  }
+
+  bool _isMealFav(String id){
+    return _favMeals.any((meal)=> meal.id ==id);
   }
 
   @override
@@ -83,7 +86,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         "init": (_) => TabsScreen(favorites: _favMeals),
         "CategoryMeals": (_) => CategoryMealsScreen(myMeals: _myMeals),
-        "MealDetails": (_) => MealDetailsScreen(addRemoveFav: _addRemoveFav),
+        "MealDetails": (_) => MealDetailsScreen(addRemoveFav: _addRemoveFav,isMealFav:_isMealFav),
         "Settings": (_) =>
             SettingsScreen(userFilters: _filters, filters: _setFilters),
       },
