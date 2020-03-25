@@ -7,6 +7,9 @@ import 'package:fluttermealsapp/dummy_data.dart';
 ///****************************************************
 
 class MealDetailsScreen extends StatelessWidget {
+  final Function addRemoveFav;
+  const MealDetailsScreen({Key key, this.addRemoveFav}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final mealId = ModalRoute.of(context).settings.arguments as String;
@@ -72,9 +75,7 @@ class MealDetailsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.favorite_border),
-        onPressed: () {
-
-        },
+        onPressed: addRemoveFav,
       ),
     );
   }

@@ -19,9 +19,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<Meal> _myMeals = DUMMY_MEALS;
+  List<Meal> _favMeals = [];
   Map<String, bool> _filters = {
     'isGlutenFree': false,
-    'isLactoseFree': true,
+    'isLactoseFree': false,
     'isVegetarian': false,
     'isVegan': false,
   };
@@ -47,6 +48,19 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _addRemoveFav(String mealID) {
+    final index = _favMeals.indexWhere((meal) => mealID == meal.id);
+    if (index >= 0) {
+      setState(() {
+        _favMeals.removeAt(index);
+      });
+    } else {
+      setState(() {
+        _favMeals.add(DUMMY_MEALS.firstWhere((meal) => mealID == meal.id));
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -67,10 +81,11 @@ class _MyAppState extends State<MyApp> {
       home: CategoryScreen(title: 'Meal App'),
       initialRoute: "init",
       routes: {
-        "init": (_) => TabsScreen(),
+        "init": (_) => TabsScreen(favorites: _favMeals),
         "CategoryMeals": (_) => CategoryMealsScreen(myMeals: _myMeals),
-        "MealDetails": (_) => MealDetailsScreen(),
-        "Settings": (_) => SettingsScreen(userFilters: _filters,filters: _setFilters),
+        "MealDetails": (_) => MealDetailsScreen(addRemoveFav: _addRemoveFav),
+        "Settings": (_) =>
+            SettingsScreen(userFilters: _filters, filters: _setFilters),
       },
     );
   }

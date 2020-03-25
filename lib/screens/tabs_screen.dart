@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttermealsapp/models/meal.dart';
 import 'package:fluttermealsapp/screens/category_screen.dart';
 import 'package:fluttermealsapp/screens/favorites_screen.dart';
 import 'package:fluttermealsapp/widgets/main_drawer.dart';
@@ -8,18 +9,26 @@ import 'package:fluttermealsapp/widgets/main_drawer.dart';
 ///****************************************************
 
 class TabsScreen extends StatefulWidget {
+  final List<Meal> favorites;
+
+  const TabsScreen({Key key, this.favorites}) : super(key: key);
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  final List <Map<String, Object>> _screens = [
-    {'screen': CategoryScreen(),
-      'title': "Categories"},
-    { 'screen': FavoritesScreen(),
-      'title': "Favorites"},
-  ];
+  List <Map<String, Object>> _screens;
   int _selectedScreenIndex = 0;
+
+  @override
+  void initState() {
+    _screens = [
+      {'screen': CategoryScreen(),
+        'title': "Categories"},
+      { 'screen': FavoritesScreen(favorites: widget.favorites),
+        'title': "Favorites"},
+    ];super.initState();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
